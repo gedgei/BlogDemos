@@ -11,21 +11,22 @@ namespace DomainContextDemo.DomainModel
 
 	class CallContextStorage : DomainContextStorage
 	{
-		private DomainContext context;
+		[ThreadStatic]
+		private static DomainContext Context;
 
 		public override void Add(DomainContext context)
 		{
-			this.context = context;
+			Context = context;
 		}
 
 		public override DomainContext Get()
 		{
-			return context;
+			return Context;
 		}
 
 		public override void Remove()
 		{
-			context = null;
+			Context = null;
 		}
 	}
 
